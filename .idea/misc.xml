@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="..\:/Users/admin/AndroidStudioProjects/MyApplication1/app/src/main/res/layout/activity_admin_home.xml" value="0.253125" />
+        <entry key="..\:/Users/admin/AndroidStudioProjects/MyApplication1/app/src/main/res/layout/activity_admin_pending_complaint.xml" value="0.16018518518518518" />
+        <entry key="..\:/Users/admin/AndroidStudioProjects/MyApplication1/app/src/main/res/layout/activity_citizen_home.xml" value="0.253125" />
+        <entry key="..\:/Users/admin/AndroidStudioProjects/MyApplication1/app/src/main/res/layout/bottom_sheet_dialog_admin.xml" value="0.253125" />
+        <entry key="..\:/Users/admin/AndroidStudioProjects/MyApplication1/app/src/main/res/layout/fragment_add_driver_to_complaint.xml" value="0.253125" />
+        <entry key="..\:/Users/admin/AndroidStudioProjects/MyApplication1/app/src/main/res/layout/fragment_admin_pending_complaint.xml" value="0.253125" />
+        <entry key="..\:/Users/admin/AndroidStudioProjects/MyApplication1/app/src/main/res/layout/fragment_admin_resolved_complaint.xml" value="0.253125" />
+        <entry key="..\:/Users/admin/AndroidStudioProjects/MyApplication1/app/src/main/res/layout/fragment_admin_work_completed.xml" value="0.253125" />
+        <entry key="..\:/Users/admin/AndroidStudioProjects/MyApplication1/app/src/main/res/layout/fragment_admin_work_in_progress.xml" value="0.253125" />
+        <entry key="..\:/Users/admin/AndroidStudioProjects/MyApplication1/app/src/main/res/layout/fragment_citizen_mycomplaint.xml" value="0.16018518518518518" />
+      </map>
+    </option>
+  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="11" project-jdk-type="JavaSDK">
+    <output url="file://$PROJECT_DIR$/build/classes" />
+  </component>
+  <component name="ProjectType">
+    <option name="id" value="Android" />
+  </component>
+</project>
