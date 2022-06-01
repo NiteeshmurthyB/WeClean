@@ -11,14 +11,6 @@ public class User {
         this.username = username;
     }
 
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
     public String getMobile() {
         return mobile;
     }
@@ -39,9 +31,8 @@ public class User {
 
     }
 
-    public User(String username, String password, String mobile, String category) {
+    public User(String username, String mobile, String category) {
         this.username = username;
-        this.password = password;
         this.mobile = mobile;
         this.category = category;
     }

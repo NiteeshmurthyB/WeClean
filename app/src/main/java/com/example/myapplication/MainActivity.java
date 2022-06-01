@@ -1,11 +1,9 @@
 package com.example.myapplication;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
 import android.util.Patterns;
 import android.view.View;
@@ -22,19 +20,9 @@ import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
 import com.google.firebase.auth.FirebaseAuthInvalidUserException;
 import com.google.firebase.auth.FirebaseAuthUserCollisionException;
 import com.google.firebase.auth.FirebaseAuthWeakPasswordException;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.time.Duration;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.util.Date;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -94,7 +82,7 @@ public class MainActivity extends AppCompatActivity {
                                         if(task.isSuccessful()){
 
                                             User user = new User(
-                                                    username,password,mobileno,category
+                                                    username,mobileno,category
                                             );
 
                                             FirebaseDatabase.getInstance().getReference("Users")
@@ -104,7 +92,7 @@ public class MainActivity extends AppCompatActivity {
                                                 public void onComplete(@NonNull Task<Void> task) {
                                                     if(task.isSuccessful())
                                                     {
-                                                        Toast.makeText(MainActivity.this,"Registered..." , Toast.LENGTH_SHORT).show();
+                                                        Toast.makeText(MainActivity.this,"User Registered Successfully" , Toast.LENGTH_SHORT).show();
                                                         Intent it = new Intent(MainActivity.this,LoginActivity.class);
                                                         startActivity(it);
                                                     }
@@ -156,6 +144,7 @@ public class MainActivity extends AppCompatActivity {
                     txtusername.setError("One or more Fields are empty");
                 }
             }
+
         });
     }
 }

@@ -92,6 +92,7 @@ public class LoginActivity extends AppCompatActivity {
                 String password = txtpassword.getText().toString().trim();
 
                 if(!username.isEmpty() && !password.isEmpty()){
+
                     mAuth.signInWithEmailAndPassword(username,password)
                             .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                                 @Override
