@@ -31,7 +31,8 @@ public class AddDriverToComplaintActivity extends AppCompatActivity{
     FirebaseAuth mAuth;
     private Spinner spinner_drivername;
     private DatabaseReference databaseReference;
-    private ArrayList<String>  arrayList = new ArrayList<>();
+    private ArrayList<String> driverIDArrayList = new ArrayList<>();
+    private ArrayList<String> workingDriverIDArrayList = new ArrayList<>();
     Complaint complaint;
     String address,adminStatus,citizenStatus,latitude,longitude,userID,driverID;
     Button btnaddDriver;
@@ -42,6 +43,7 @@ public class AddDriverToComplaintActivity extends AppCompatActivity{
         setContentView(R.layout.activity_add_driver_to_complaint);
 
         spinner_drivername = findViewById(R.id.spinner_drivername);
+        databaseReference = FirebaseDatabase.getInstance().getReference();
         getSpinnerItems();
 
         complaint = getIntent().getParcelableExtra("complaints");
@@ -121,21 +123,25 @@ public class AddDriverToComplaintActivity extends AppCompatActivity{
     }
 
     private void getSpinnerItems() {
-        databaseReference = FirebaseDatabase.getInstance().getReference();
+        getAllWorkingDriverId();
+        getAllDriverId();
+    }
+
+    private void getAllDriverId() {
         databaseReference.child("Users").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                arrayList.clear();
+                driverIDArrayList.clear();
                 for (DataSnapshot items: snapshot.getChildren()){
                     String item = items.child("category").getValue(String.class);
                     if(item.equals("Driver")){
-                        arrayList.add(items.getKey());
+                        driverIDArrayList.add(items.getKey());
                     }
                 }
+                removeWorkingDriverId(driverIDArrayList,workingDriverIDArrayList);
                 ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(AddDriverToComplaintActivity.this,
-                        R.layout.style_spinner_adddriver,arrayList);
+                        R.layout.style_spinner_adddriver, driverIDArrayList);
                 spinner_drivername.setAdapter(arrayAdapter);
-
             }
 
             @Override
@@ -143,6 +149,33 @@ public class AddDriverToComplaintActivity extends AppCompatActivity{
 
             }
         });
+    }
+
+    private void getAllWorkingDriverId() {
+        databaseReference.child("Complaints").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                workingDriverIDArrayList.clear();
+                for (DataSnapshot complaints:snapshot.getChildren()){
+                    String complaintAdminStatus = complaints.child("adminStatus").getValue(String.class);
+                    if(complaintAdminStatus.equals("Driver Added") || complaintAdminStatus.equals("Cleaning Done")){
+                        String complaintDriverID = complaints.child("driverID").getValue(String.class);
+                        workingDriverIDArrayList.add(complaintDriverID);
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
+
+    private void removeWorkingDriverId(ArrayList<String> driverIDArrayList, ArrayList<String> workingDriverIDArrayList) {
+        for (String driverId:workingDriverIDArrayList){
+            driverIDArrayList.remove(driverId);
+        }
     }
 
     // Code for Logout
