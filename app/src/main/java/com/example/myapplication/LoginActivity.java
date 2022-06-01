@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -31,6 +32,7 @@ public class LoginActivity extends AppCompatActivity {
 
     private EditText txtusername,txtpassword;
     private Button btnlogin,btnsignUp;
+    private TextView tv_forgotpassword;
     private FirebaseAuth mAuth;
     private FirebaseDatabase firebaseDatabase;
     private Calendar calendar;
@@ -43,6 +45,7 @@ public class LoginActivity extends AppCompatActivity {
 
         txtusername = (EditText) findViewById(R.id.editTextTextEmailAddress);
         txtpassword = (EditText) findViewById(R.id.editTextTextPassword);
+        tv_forgotpassword = (TextView) findViewById(R.id.textView_fgtpass);
         btnlogin = (Button) findViewById(R.id.btn_login);
         btnsignUp = (Button) findViewById(R.id.btn_signUp);
         mAuth = FirebaseAuth.getInstance();
@@ -123,8 +126,13 @@ public class LoginActivity extends AppCompatActivity {
                 }else{
                     Toast.makeText(LoginActivity.this,"Enter valid email and password",Toast.LENGTH_SHORT).show();
                 }
+            }
+        });
 
-
+        tv_forgotpassword.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(LoginActivity.this,ForgotPasswordActivity.class));
             }
         });
     }
