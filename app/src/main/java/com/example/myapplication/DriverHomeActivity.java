@@ -57,6 +57,7 @@ public class DriverHomeActivity extends AppCompatActivity implements ComplaintDr
         complaintDriverAdapter = new ComplaintDriverAdapter(complaintArrayList,this,this);
         drivercomplaintRV.setLayoutManager(new LinearLayoutManager(this));
         drivercomplaintRV.setAdapter(complaintDriverAdapter);
+        mAuth = FirebaseAuth.getInstance();
         getDriverComplaint();
 
     }

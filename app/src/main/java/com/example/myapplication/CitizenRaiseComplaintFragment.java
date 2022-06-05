@@ -258,7 +258,6 @@ public class CitizenRaiseComplaintFragment extends Fragment implements View.OnCl
         }
     }
 
-    //
     private void dispatchTakePictureIntent() {
         Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         // Ensure that there's a camera activity to handle the intent
