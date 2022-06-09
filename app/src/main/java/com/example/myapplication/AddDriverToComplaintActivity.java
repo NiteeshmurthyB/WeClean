@@ -8,9 +8,11 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -36,15 +38,34 @@ public class AddDriverToComplaintActivity extends AppCompatActivity{
     Complaint complaint;
     String address,adminStatus,citizenStatus,latitude,longitude,userID,driverID;
     Button btnaddDriver;
+    private TextView txtdrivername,txtmobilenumber,txtactivecomplaint;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_driver_to_complaint);
 
+        txtdrivername = (TextView) findViewById(R.id.txt_drivername);
+        txtmobilenumber = (TextView) findViewById(R.id.txt_mobilenumber);
+        txtactivecomplaint = (TextView) findViewById(R.id.txt_activeComplaint);
+        mAuth = FirebaseAuth.getInstance();
+
         spinner_drivername = findViewById(R.id.spinner_drivername);
         databaseReference = FirebaseDatabase.getInstance().getReference();
         getSpinnerItems();
+
+        spinner_drivername.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                String spinner_driverID = spinner_drivername.getSelectedItem().toString();
+                getNumberofActiveComplaints(spinner_driverID);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
 
         complaint = getIntent().getParcelableExtra("complaints");
 
@@ -122,6 +143,51 @@ public class AddDriverToComplaintActivity extends AppCompatActivity{
 
     }
 
+    private void getNumberofActiveComplaints(String spinner_driverID) {
+
+        databaseReference.child("Complaints").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                int numberofActiveComplaints = 0;
+                for (DataSnapshot complaints:snapshot.getChildren()){
+                    String complaintAdminStatus = complaints.child("adminStatus").getValue(String.class);
+                    if(complaintAdminStatus.equals("Driver Added") || complaintAdminStatus.equals("Cleaning Done")){
+                        String complaintDriverID = complaints.child("driverID").getValue(String.class);
+                        if (complaintDriverID.equals(spinner_driverID)){
+                            numberofActiveComplaints += 1;
+                        }
+
+                    }
+                }
+                txtactivecomplaint.setText("Active Complaints : " + numberofActiveComplaints);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+        databaseReference.child("Users").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (DataSnapshot users: snapshot.getChildren()){
+                    String userID = users.getKey();
+                    if (userID.equals(spinner_driverID)){
+                        txtdrivername.setText("Driver Name : " + users.child("username").getValue(String.class));
+                        txtmobilenumber.setText("Mobile Number : " + users.child("mobile").getValue(String.class));
+                        break;
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
+
     private void getSpinnerItems() {
         getAllWorkingDriverId();
         getAllDriverId();
@@ -138,7 +204,7 @@ public class AddDriverToComplaintActivity extends AppCompatActivity{
                         driverIDArrayList.add(items.getKey());
                     }
                 }
-                removeWorkingDriverId(driverIDArrayList,workingDriverIDArrayList);
+//                removeWorkingDriverId(driverIDArrayList,workingDriverIDArrayList);
                 ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(AddDriverToComplaintActivity.this,
                         R.layout.style_spinner_adddriver, driverIDArrayList);
                 spinner_drivername.setAdapter(arrayAdapter);

@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="20dp"
+    android:padding="10dp"
     android:layout_margin="10dp"
     android:gravity="center"
     tools:context=".AddDriverToComplaintActivity">
@@ -13,17 +13,39 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_margin="10dp"
         android:text="Select Driver ID" />
     <Spinner
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_margin="10dp"
         android:id="@+id/spinner_drivername"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Driver Name : "
+        android:layout_margin="10dp"
+        android:id="@+id/txt_drivername"/>
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Mobile Number : "
+        android:layout_margin="10dp"
+        android:id="@+id/txt_mobilenumber"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Active Complaints : "
+        android:layout_margin="10dp"
+        android:id="@+id/txt_activeComplaint"/>
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/btn_addDriver"
         android:text="Add Driver"
+        android:layout_margin="10dp"
         android:textAllCaps="false"/>
 
 </LinearLayout>
