@@ -659,16 +659,22 @@ public class CitizenRaiseComplaintFragment extends Fragment implements View.OnCl
                             Double citizenlatitude = Double.parseDouble(txtlattitude.getText().toString());
                             Double citizenlongitude = Double.parseDouble(txtlongitude.getText().toString());
                             Double errorRate = 0.002;
+                            String complaintadminStatus = ds.child("adminStatus").getValue(String.class);
+                            String complaintcitizenStatus = ds.child("citizenStatus").getValue(String.class);
 
                             if (( compaintLatitude + errorRate) > citizenlatitude &&
                                     (compaintLatitude - errorRate) < citizenlatitude &&
                                     (complaintLongitude + errorRate) > citizenlongitude &&
                                     (complaintLongitude - errorRate) < citizenlongitude){
-                                complaintFlag = 1;
-                                Toast.makeText(getContext(),"complaint already registered",Toast.LENGTH_SHORT).show();
-                                //Extra
-                                //progressDialog.dismiss();
-                                break;
+
+                                if (complaintadminStatus.equals("Complaint Resolved") &&
+                                        complaintcitizenStatus.equals("Complaint Resolved")){
+                                    complaintFlag = 7;
+                                }else{
+                                    complaintFlag = 1;
+                                    Toast.makeText(getContext(),"complaint already registered",Toast.LENGTH_SHORT).show();
+                                    break;
+                                }
                             }
                         }
 
