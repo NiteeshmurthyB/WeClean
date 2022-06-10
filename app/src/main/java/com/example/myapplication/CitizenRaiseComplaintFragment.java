@@ -401,6 +401,8 @@ public class CitizenRaiseComplaintFragment extends Fragment implements View.OnCl
                             String driverImageFilename = "123";
                             String userID = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
+                            String complaintKey = "";
+                            complaintKey = Address + ' ' +lat.replace('.',',') + ' ' + llong.replace('.',',');
                             calendar = Calendar.getInstance();
                             dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
                             String today = dateFormat.format(calendar.getTime());
@@ -410,7 +412,7 @@ public class CitizenRaiseComplaintFragment extends Fragment implements View.OnCl
                                 Complaint complaint = new Complaint(userID,driverID,adminStatus,citizenStatus,
                                         Address,lat,llong,today,citizenImageFilename,driverImageFilename);
 
-                                databaseReference.child(Address).setValue(complaint);
+                                databaseReference.child(complaintKey).setValue(complaint);
                             }else{
                                 Toast.makeText(getContext(),"Click GetLocation Button",Toast.LENGTH_SHORT).show();
                             }
@@ -658,7 +660,7 @@ public class CitizenRaiseComplaintFragment extends Fragment implements View.OnCl
                             Double complaintLongitude = Double.parseDouble(ds.child("longitude").getValue(String.class));
                             Double citizenlatitude = Double.parseDouble(txtlattitude.getText().toString());
                             Double citizenlongitude = Double.parseDouble(txtlongitude.getText().toString());
-                            Double errorRate = 0.002;
+                            Double errorRate = 0.00003;
                             String complaintadminStatus = ds.child("adminStatus").getValue(String.class);
                             String complaintcitizenStatus = ds.child("citizenStatus").getValue(String.class);
 
