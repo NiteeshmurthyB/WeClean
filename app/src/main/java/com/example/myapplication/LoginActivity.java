@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -95,7 +96,6 @@ public class LoginActivity extends AppCompatActivity {
                 String password = txtpassword.getText().toString().trim();
 
                 if(!username.isEmpty() && !password.isEmpty()){
-
                     mAuth.signInWithEmailAndPassword(username,password)
                             .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                                 @Override
@@ -127,12 +127,26 @@ public class LoginActivity extends AppCompatActivity {
                     Toast.makeText(LoginActivity.this,"Enter valid email and password",Toast.LENGTH_SHORT).show();
                 }
             }
+
+
         });
 
         tv_forgotpassword.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(LoginActivity.this,ForgotPasswordActivity.class));
+            }
+        });
+    }
+
+    private void sendEmailVerifcation() {
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+        currentUser.sendEmailVerification().addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                if (task.isSuccessful()){
+                    Toast.makeText(LoginActivity.this,"Verification link has been sent.",Toast.LENGTH_SHORT).show();
+                }
             }
         });
     }
