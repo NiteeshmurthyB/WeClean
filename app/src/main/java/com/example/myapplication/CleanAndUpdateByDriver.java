@@ -498,8 +498,10 @@ private boolean hasPermission(Context context, String... PREMISSIONS) {
                             map.put("userID", userID);
                             map.put("driverImageFilename",driverImageFilename);
 
+                            String complaintKey = "";
+                            complaintKey = address + ' ' +latitude.replace('.',',') + ' ' + longitude.replace('.',',');
                             databaseReference = FirebaseDatabase.getInstance().getReference("Complaints");
-                            databaseReference.child(address).updateChildren(map).addOnCompleteListener(new OnCompleteListener<Void>() {
+                            databaseReference.child(complaintKey).updateChildren(map).addOnCompleteListener(new OnCompleteListener<Void>() {
                                 @Override
                                 public void onComplete(@NonNull Task<Void> task) {
 

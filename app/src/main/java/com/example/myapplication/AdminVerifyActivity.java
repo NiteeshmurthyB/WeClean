@@ -151,8 +151,10 @@ public class AdminVerifyActivity extends AppCompatActivity {
                 map.put("longitude",longitude);
                 map.put("userID",userID);
 
+                String complaintKey = "";
+                complaintKey = address + ' ' +latitude.replace('.',',') + ' ' + longitude.replace('.',',');
                 databaseReference = FirebaseDatabase.getInstance().getReference("Complaints");
-                databaseReference.child(address).updateChildren(map).addOnCompleteListener(new OnCompleteListener<Void>() {
+                databaseReference.child(complaintKey).updateChildren(map).addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
                         Toast.makeText(AdminVerifyActivity.this,adminStatus, Toast.LENGTH_SHORT).show();
@@ -206,8 +208,10 @@ public class AdminVerifyActivity extends AppCompatActivity {
                     map.put("userID",userID);
                     map.put("driverImageFilename","123");
 
+                    String complaintKey = "";
+                    complaintKey = address + ' ' +latitude.replace('.',',') + ' ' + longitude.replace('.',',');
                     databaseReference = FirebaseDatabase.getInstance().getReference("Complaints");
-                    databaseReference.child(address).updateChildren(map).addOnCompleteListener(new OnCompleteListener<Void>() {
+                    databaseReference.child(complaintKey).updateChildren(map).addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
                             Toast.makeText(AdminVerifyActivity.this,"Rejected", Toast.LENGTH_SHORT).show();

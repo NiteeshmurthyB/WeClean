@@ -96,8 +96,10 @@ public class AddDriverToComplaintActivity extends AppCompatActivity{
                 map.put("longitude",longitude);
                 map.put("userID",userID);
 
+                String complaintKey = "";
+                complaintKey = address + ' ' +latitude.replace('.',',') + ' ' + longitude.replace('.',',');
                 databaseReference = FirebaseDatabase.getInstance().getReference("Complaints");
-                databaseReference.child(address).updateChildren(map).addOnCompleteListener(new OnCompleteListener<Void>() {
+                databaseReference.child(complaintKey).updateChildren(map).addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
                         Toast.makeText(AddDriverToComplaintActivity.this,"Driver has been added successfully",Toast.LENGTH_SHORT).show();

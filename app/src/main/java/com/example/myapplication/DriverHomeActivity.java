@@ -149,7 +149,7 @@ public class DriverHomeActivity extends AppCompatActivity implements ComplaintDr
         Button btnupdate = layout.findViewById(R.id.btn_update);
 
         String adminStatus = complaint.getAdminStatus();
-        if((adminStatus.equals("Cleaning Done")) || adminStatus.equals("Resolve")){
+        if((adminStatus.equals("Cleaning Done")) || adminStatus.equals("Complaint Resolved")){
             btnupdate.setVisibility(View.INVISIBLE);
         }
 
